@@ -19,12 +19,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        
     }
 
     private void OnJump()
     {
-        print("Jump");
+        rb.AddForce(new Vector3(0, jumpForce, 0));
+    }
+
+    private void OnMove(InputValue inputValue)
+    {
+        Vector2 _ = inputValue.Get<Vector2>();
+        Vector3 movement = new(_.x * speed, 0, _.y * speed);
+        print(movement);
+        rb.AddForce(movement);
+
     }
 
     public void Grounded()
