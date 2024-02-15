@@ -8,6 +8,7 @@ public class LimbCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        print("limb hit ground!");
         player.Grounded();
     }
 }

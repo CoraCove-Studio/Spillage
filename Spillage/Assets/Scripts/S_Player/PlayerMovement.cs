@@ -24,7 +24,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump()
     {
-        rb.AddForce(new Vector3(0, jumpForce, 0));
+        if (isGrounded)
+        {
+            rb.AddForce(new Vector3(0, jumpForce, 0));
+        }
+        isGrounded = false;
     }
 
     private void OnMove(InputValue inputValue)
