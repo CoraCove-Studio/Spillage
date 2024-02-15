@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private PlayerControl pc;
     [SerializeField] private int speed;
-    [SerializeField] private int strafeSpeed;
+    [SerializeField] private int lookSpeed;
     [SerializeField] private int jumpForce;
     private bool isGrounded = true;
 
@@ -37,7 +38,15 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = new(_.x * speed, 0, _.y * speed);
         print(movement);
         rb.AddForce(movement);
+    }
 
+    private void OnLook(InputValue inputValue)
+    {
+        Vector2 inputVector = inputValue.Get<Vector2>();
+        Vector3 torque = new(0, inputVector.x * lookSpeed, 0);
+
+        // Apply torque to the Rigidbody
+        rb.AddTorque(torque, ForceMode.Force);
     }
 
     public void Grounded()
